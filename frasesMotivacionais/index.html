@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="style.css">
+<head>
+  <title>Gerador de Frases Motivacionais</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gerador de Frases Motivacionais</h1>
+    <button id="generateQuoteButton">Gerar Frase</button>
+    <p id="quote"></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const generateQuoteButton = document.getElementById('generateQuoteButton');
+      const quoteElement = document.getElementById('quote');
+
+      generateQuoteButton.addEventListener('click', () => {
+        fetch('https://type.fit/api/quotes')
+          .then(response => response.json())
+          .then(data => {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const quote = data[randomIndex].text;
+            quoteElement.textContent = quote;
+          })
+          .catch(error => {
+            quoteElement.textContent = 'Ocorreu um erro ao carregar a frase.';
+            console.error('Ocorreu um erro:', error);
+          });
+      });
+    });
+  </script>
+</body>
+</html>

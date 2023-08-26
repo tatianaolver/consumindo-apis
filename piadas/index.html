@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="style.css">
+<head>
+  <title>Gerador de Piadas Engraçadas</title>
+</head>
+<body>
+  <h1>Gerador de Piadas Engraçadas</h1>
+  <button id="generateJokeButton">Gerar Piada</button>
+  <p id="joke"></p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const generateJokeButton = document.getElementById('generateJokeButton');
+      const jokeElement = document.getElementById('joke');
+
+      generateJokeButton.addEventListener('click', () => {
+        fetch('https://v2.jokeapi.dev/joke/Any?type=single')
+          .then(response => response.json())
+          .then(data => {
+            if (data.joke) {
+              jokeElement.textContent = data.joke;
+            } else {
+              jokeElement.textContent = 'Nenhuma piada encontrada.';
+            }
+          })
+          .catch(error => {
+            jokeElement.textContent = 'Ocorreu um erro ao carregar a piada.';
+            console.error('Ocorreu um erro:', error);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
